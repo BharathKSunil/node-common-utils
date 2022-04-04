@@ -69,7 +69,8 @@ abstract class ApiError extends Error {
       default: {
         let message = err.debugMessage;
         // Do not send failure message in production as it may send sensitive data
-        if (process.env.NODE_ENV == 'production') message = 'Something Went Wrong';
+        if (process.env.NODE_ENV == 'production')
+          message = 'Something Went Wrong';
         return new apiResponse.InternalErrorResponse(
           message,
           err.displayMessage,

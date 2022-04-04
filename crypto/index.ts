@@ -1,6 +1,5 @@
 import crypto from 'crypto';
 
-
 function getMD5(): Buffer {
   return crypto.createHash('md5').update(process.env.SECRET_KEY!!).digest();
 }

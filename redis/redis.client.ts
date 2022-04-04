@@ -10,6 +10,7 @@ const options = <redis.RedisOptions>{
 let redisConnection: redis.Redis | null = null;
 
 export default ((): redis.Redis => {
-  if (!redisConnection) redisConnection = new redis(process.env.REDIS_CACHE_URL, options);
+  if (!redisConnection)
+    redisConnection = new redis(process.env.REDIS_CACHE_URL, options);
   return redisConnection;
 })();
