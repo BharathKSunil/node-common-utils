@@ -4,6 +4,7 @@
   "description": "A Common Nodejs Common Utils needed in most of my projects",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
