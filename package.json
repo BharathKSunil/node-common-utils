@@ -4,6 +4,9 @@
   "description": "A Common Nodejs Common Utils needed in most of my projects",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "build": "tsc",
     "format": "prettier --write .",
