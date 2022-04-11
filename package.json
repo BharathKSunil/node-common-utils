@@ -9,13 +9,6 @@
     "dist",
     "types"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/*.js",
-      "require": "./dist/*.cjs",
-      "types": "./types/*.d.ts"
-    }
-  },
   "scripts": {
     "build": "tsc",
     "format": "prettier --write .",
