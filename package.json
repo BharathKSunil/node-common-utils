@@ -3,11 +3,7 @@
   "version": "0.1.0",
   "description": "A Common Nodejs Common Utils needed in most of my projects",
   "module": "dist/index.js",
-  "types": "types/index.d.ts",
-  "files": [
-    "dist",
-    "types"
-  ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write .",
