@@ -2,6 +2,8 @@
   "name": "node-common-utils",
   "version": "0.1.0",
   "description": "A Common Nodejs Common Utils needed in most of my projects",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write .",
