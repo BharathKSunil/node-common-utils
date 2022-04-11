@@ -1,8 +1,8 @@
-export var __esModule: boolean;
-declare namespace _default {
-    const cache: any;
-    const pub: any;
-    const sub: any;
-}
+/// <reference types="ioredis" />
+declare const _default: {
+    cache: import("ioredis").Redis;
+    pub: import("ioredis").Redis;
+    sub: import("ioredis").Redis;
+};
 export default _default;
 //# sourceMappingURL=index.d.ts.map

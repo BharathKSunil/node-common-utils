@@ -1,7 +1,17 @@
-export var __esModule: boolean;
-export var ValidationSource: {};
-declare function _default(schema: any, isFull?: boolean): (req: any, _res: any, next: any) => any;
+import Joi from 'joi';
+import { Request, Response, NextFunction } from 'express';
+export declare enum ValidationSource {
+    BODY = "body",
+    HEADER = "headers",
+    QUERY = "query",
+    PARAM = "params"
+}
+declare type ValidationRequest = {
+    source: ValidationSource;
+    schema: Joi.ObjectSchema;
+};
+declare const _default: (schema: ValidationRequest[], isFull?: boolean) => (req: Request, _res: Response, next: NextFunction) => void;
 export default _default;
-export function isJwtBearerToken(): any;
-export function isObjectId(): any;
+export declare const isJwtBearerToken: () => Joi.StringSchema;
+export declare const isObjectId: () => Joi.StringSchema;
 //# sourceMappingURL=validators.d.ts.map

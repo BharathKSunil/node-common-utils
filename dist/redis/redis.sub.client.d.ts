@@ -1,4 +1,4 @@
-export var __esModule: boolean;
-declare var _default: any;
+import redis from 'ioredis';
+declare const _default: redis.Redis;
 export default _default;
 //# sourceMappingURL=redis.sub.client.d.ts.map
