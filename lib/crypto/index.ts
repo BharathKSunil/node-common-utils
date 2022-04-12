@@ -4,7 +4,8 @@ function getMD5(): Buffer {
   return crypto.createHash('md5').update(process.env.SECRET_KEY!!).digest();
 }
 
-function encrypt3DES(text: string): string {
+function encrypt3DES(text:  string | undefined | null): string | undefined {
+  if(text === undefined || text === null) return undefined;
   /* 
     use 3DES(https://en.wikipedia.org/wiki/Triple_DES) algorithm to encrypt
     'text' using 'secretKey'
@@ -23,7 +24,8 @@ function encrypt3DES(text: string): string {
   return encrypted + cipher.final('base64');
 }
 
-function decrypt3DES(encryptedBase64: string): string {
+function decrypt3DES(encryptedBase64: string | undefined | null): string | undefined {
+  if(encryptedBase64 === undefined || encryptedBase64 === null) return undefined;
   /* 
     use 3DES(https://en.wikipedia.org/wiki/Triple_DES) algorithm to decrypt
     'encryptedBase64' using 'secretKey'
