@@ -23,7 +23,7 @@ abstract class ApiResponse {
   }
 
   public send(res: Response): Response {
-    return this.prepare<ApiResponse>(res, this);
+    return this.prepare<ApiResponse>(res, this).send();
   }
 
   private static sanitize<T extends ApiResponse>(response: T): T {

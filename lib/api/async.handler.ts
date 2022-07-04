@@ -7,6 +7,5 @@ type AsyncFunction = (
 ) => Promise<any>;
 
 export default (execution: AsyncFunction) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    execution(req, res, next).catch(next);
-  };
+  (req: Request, res: Response, next: NextFunction) =>
+    execution(req, res, next).catch(next)
