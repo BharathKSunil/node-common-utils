@@ -37,12 +37,14 @@
     "joi": "^17.4.2",
     "mongoose": "^8.0.0",
     "redis": "^4.6.10",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@types/validator": "^13.6.3",
     "prettier": "^3.0.3",
-    "ts-node": "^10.3.0",
-    "typescript": "^5.2.2"
+    "ts-node": "^10.3.0"
   },
   "packageManager": "yarn@1.22.19"
 }
