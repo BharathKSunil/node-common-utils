@@ -14,7 +14,7 @@ enum ErrorType {
 abstract class ApiError extends Error {
   constructor(
     public type: ErrorType,
-    public debugMessage: string = 'error',
+    public debugMessage = 'error',
     public displayMessage?: string,
     public errorCode?: string,
   ) {

@@ -10,17 +10,17 @@ export enum ValidationSource {
   PARAM = 'params',
 }
 
-type ValidationResult = {
+interface ValidationResult {
   source: ValidationSource;
   error: Joi.ValidationError;
-};
+}
 
-type ValidationRequest = {
+interface ValidationRequest {
   source: ValidationSource;
   schema: Joi.ObjectSchema;
-};
+}
 
-export default (schema: ValidationRequest[], isFull: boolean = false) =>
+export default (schema: ValidationRequest[], isFull = false) =>
   (req: Request, _res: Response, next: NextFunction) => {
     try {
       const errors: ValidationResult[] = [];
@@ -47,10 +47,10 @@ export default (schema: ValidationRequest[], isFull: boolean = false) =>
         });
       } else {
         const result = errors[0];
-        const { details } = result?.error;
+        const details = result?.error?.details;
         const message = details
-          .map(i => i.message.replace(/['"]+/g, ''))
-          .join(',');
+          ?.map(i => i.message.replace(/['"]+/g, ''))
+          ?.join(',');
         errorMessage = `${result?.source}: ${message}`;
       }
 
@@ -61,7 +61,7 @@ export default (schema: ValidationRequest[], isFull: boolean = false) =>
   };
 
 export const isJwtBearerToken = () =>
-  Joi.string().custom((value: string, _helpers) => {
+  Joi.string().custom((value: string) => {
     if (value.startsWith('Bearer ')) {
       const token = value.split(' ')[1];
       if (!token)

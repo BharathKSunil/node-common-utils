@@ -13,13 +13,18 @@ enum ResponseStatus {
 }
 
 abstract class ApiResponse {
-  constructor(protected status: ResponseStatus, protected message: any) {}
+  constructor(
+    protected status?: ResponseStatus,
+    protected message?: unknown,
+  ) {}
 
   protected prepare<T extends ApiResponse>(
     res: Response,
     response: T,
   ): Response {
-    return res.status(this.status).json(ApiResponse.sanitize(response).message);
+    return res
+      .status(this.status ?? ResponseStatus.INTERNAL_ERROR)
+      .json(ApiResponse.sanitize(response).message);
   }
 
   public send(res: Response): Response {
@@ -29,7 +34,6 @@ abstract class ApiResponse {
   private static sanitize<T extends ApiResponse>(response: T): T {
     const clone: T = {} as T;
     Object.assign(clone, response);
-    // @ts-ignore
     delete clone.status;
     for (const i in clone) if (typeof clone[i] === 'undefined') delete clone[i];
     return clone;
@@ -40,15 +44,15 @@ class ErrorResponse {
   constructor(
     public error_code: string,
     public display_message: string,
-    public error_message: string = 'Something Went Wrong',
+    public error_message = 'Something Went Wrong',
   ) {}
 }
 
 class AuthFailureResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Invalid Credentials!',
-    errorCode: string = 'UNAUTHORIZED',
+    displayMessage = 'Invalid Credentials!',
+    errorCode = 'UNAUTHORIZED',
   ) {
     super(
       ResponseStatus.UNAUTHORIZED,
@@ -60,8 +64,8 @@ class AuthFailureResponse extends ApiResponse {
 class NotFoundResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Resource Not Found!',
-    errorCode: string = 'NOT_FOUND',
+    displayMessage = 'Resource Not Found!',
+    errorCode = 'NOT_FOUND',
   ) {
     super(
       ResponseStatus.NOT_FOUND,
@@ -73,8 +77,8 @@ class NotFoundResponse extends ApiResponse {
 class ForbiddenResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Access Denied!',
-    errorCode: string = 'FORBIDDEN',
+    displayMessage = 'Access Denied!',
+    errorCode = 'FORBIDDEN',
   ) {
     super(
       ResponseStatus.FORBIDDEN,
@@ -86,8 +90,8 @@ class ForbiddenResponse extends ApiResponse {
 class BadRequestResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Invalid App Request!',
-    errorCode: string = 'BAD_REQUEST',
+    displayMessage = 'Invalid App Request!',
+    errorCode = 'BAD_REQUEST',
   ) {
     super(
       ResponseStatus.BAD_REQUEST,
@@ -99,8 +103,8 @@ class BadRequestResponse extends ApiResponse {
 class ConflictErrorResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Resource Already Exists!',
-    errorCode: string = 'CONFLICT',
+    displayMessage = 'Resource Already Exists!',
+    errorCode = 'CONFLICT',
   ) {
     super(
       ResponseStatus.CONFLICT,
@@ -112,8 +116,8 @@ class ConflictErrorResponse extends ApiResponse {
 class InternalErrorResponse extends ApiResponse {
   constructor(
     errorMessage?: string,
-    displayMessage: string = 'Oops, Something went wrong!',
-    errorCode: string = 'INTERNAL_ERROR',
+    displayMessage = 'Oops, Something went wrong!',
+    errorCode = 'INTERNAL_ERROR',
   ) {
     super(
       ResponseStatus.INTERNAL_ERROR,
