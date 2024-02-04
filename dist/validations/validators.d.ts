@@ -6,10 +6,10 @@ export declare enum ValidationSource {
     QUERY = "query",
     PARAM = "params"
 }
-type ValidationRequest = {
+interface ValidationRequest {
     source: ValidationSource;
     schema: Joi.ObjectSchema;
-};
+}
 declare const _default: (schema: ValidationRequest[], isFull?: boolean) => (req: Request, _res: Response, next: NextFunction) => void;
 export default _default;
 export declare const isJwtBearerToken: () => Joi.StringSchema<string>;

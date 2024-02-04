@@ -11,9 +11,9 @@ declare enum ResponseStatus {
     INTERNAL_ERROR = 500
 }
 declare abstract class ApiResponse {
-    protected status: ResponseStatus;
-    protected message: any;
-    constructor(status: ResponseStatus, message: any);
+    protected status?: ResponseStatus | undefined;
+    protected message?: unknown;
+    constructor(status?: ResponseStatus | undefined, message?: unknown);
     protected prepare<T extends ApiResponse>(res: Response, response: T): Response;
     send(res: Response): Response;
     private static sanitize;

@@ -17,6 +17,7 @@ var ValidationSource;
 exports.default = (function (schema, isFull) {
     if (isFull === void 0) { isFull = false; }
     return function (req, _res, next) {
+        var _a, _b;
         try {
             var errors_1 = [];
             schema.forEach(function (value) {
@@ -42,10 +43,8 @@ exports.default = (function (schema, isFull) {
             }
             else {
                 var result = errors_1[0];
-                var details = (result === null || result === void 0 ? void 0 : result.error).details;
-                var message = details
-                    .map(function (i) { return i.message.replace(/['"]+/g, ''); })
-                    .join(',');
+                var details = (_a = result === null || result === void 0 ? void 0 : result.error) === null || _a === void 0 ? void 0 : _a.details;
+                var message = (_b = details === null || details === void 0 ? void 0 : details.map(function (i) { return i.message.replace(/['"]+/g, ''); })) === null || _b === void 0 ? void 0 : _b.join(',');
                 errorMessage_1 = "".concat(result === null || result === void 0 ? void 0 : result.source, ": ").concat(message);
             }
             next(new api_errors_1.default.BadRequestError(errorMessage_1));
@@ -56,7 +55,7 @@ exports.default = (function (schema, isFull) {
     };
 });
 var isJwtBearerToken = function () {
-    return joi_1.default.string().custom(function (value, _helpers) {
+    return joi_1.default.string().custom(function (value) {
         if (value.startsWith('Bearer ')) {
             var token = value.split(' ')[1];
             if (!token)

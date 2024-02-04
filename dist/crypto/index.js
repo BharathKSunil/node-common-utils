@@ -17,7 +17,7 @@ function encrypt3DES(text) {
     // create hash of scret key
     var secretKeyHash = getMD5();
     // properly expand 3DES key from 128 bit to 192 bit
-    secretKeyHash = Buffer.concat([secretKeyHash, secretKeyHash.slice(0, 8)]);
+    secretKeyHash = Buffer.concat([secretKeyHash, secretKeyHash.subarray(0, 8)]);
     // create the cipher initial vector for 3DES with secretKeyHash
     var cipher = crypto_1.default.createCipheriv('des-ede3', secretKeyHash, '');
     // Update the cipher with text
@@ -35,11 +35,11 @@ function decrypt3DES(encryptedBase64) {
       'encryptedBase64' using 'secretKey'
       */
     var secretKeyHash = getMD5();
-    secretKeyHash = Buffer.concat([secretKeyHash, secretKeyHash.slice(0, 8)]);
+    secretKeyHash = Buffer.concat([secretKeyHash, secretKeyHash.subarray(0, 8)]);
     var decipher = crypto_1.default.createDecipheriv('des-ede3', secretKeyHash, '');
     var decrypted = decipher.update(encryptedBase64, 'base64', 'utf8');
-    decrypted += decipher.final();
-    return decrypted.toString();
+    decrypted += decipher.final().toString('utf8');
+    return decrypted;
 }
 exports.default = {
     encrypt3DES: encrypt3DES,

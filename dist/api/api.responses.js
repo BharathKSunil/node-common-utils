@@ -33,7 +33,10 @@ var ApiResponse = /** @class */ (function () {
         this.message = message;
     }
     ApiResponse.prototype.prepare = function (res, response) {
-        return res.status(this.status).json(ApiResponse.sanitize(response).message);
+        var _a;
+        return res
+            .status((_a = this.status) !== null && _a !== void 0 ? _a : ResponseStatus.INTERNAL_ERROR)
+            .json(ApiResponse.sanitize(response).message);
     };
     ApiResponse.prototype.send = function (res) {
         return this.prepare(res, this);
@@ -41,7 +44,6 @@ var ApiResponse = /** @class */ (function () {
     ApiResponse.sanitize = function (response) {
         var clone = {};
         Object.assign(clone, response);
-        // @ts-ignore
         delete clone.status;
         for (var i in clone)
             if (typeof clone[i] === 'undefined')
